@@ -10,12 +10,12 @@ function NavBar(props){
 
     return(
         <>
-        <div className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white'>
+        <div id='gear_back' className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white'>
       <h1 className='w-full text-3xl font-bold text-[#00df9a]'>BACKY</h1>
       <ul className='hidden md:flex'>
         <li className='p-4'><a href="#">Home</a></li>
         <li className='p-4'><a href="#">Company</a></li>
-        <li className='p-4'><a href="#">Resources</a></li>
+        <li className='p-4'><a href="#">Demo</a></li>
         <li className='p-4'><a href="#">About</a></li>
         <li className='p-4'><a href="#">Contact</a></li>
       </ul>
@@ -26,7 +26,7 @@ function NavBar(props){
         <h1 className='w-full text-3xl font-bold text-[#00df9a] m-4'>BACKY</h1>
         <li className='p-4 border-b border-gray-600'><a href="#">Home</a></li>
         <li className='p-4 border-b border-gray-600'><a href="#">Company</a></li>
-        <li className='p-4 border-b border-gray-600'><a href="#">Resources</a></li>
+        <li className='p-4 border-b border-gray-600'><a href="#">Demo</a></li>
         <li className='p-4 border-b border-gray-600'><a href="#">About</a></li>
         <li className='p-4'><a href="#">Contact</a></li>
       </ul>

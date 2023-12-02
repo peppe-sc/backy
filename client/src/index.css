@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-  background-image: url('assets/gear_backgroud_v2.png');
+    background-image: url(assets/gear_backgroud_v2.png);
 }

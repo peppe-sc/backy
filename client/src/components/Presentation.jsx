@@ -1,6 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Presentation(){
+
+  let navigate = useNavigate()
+
   return (
     <div className='text-white'>
       <div className='max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center'>
@@ -15,7 +19,7 @@ function Presentation(){
           
         </div>
         <p className='md:text-2xl text-xl font-bold text-gray-500'>Simply design your backend without writing any code</p>
-        <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black'>Get Started</button>
+        <button onClick={(event)=>navigate('/demo')} className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black'>Get Started</button>
       </div>
     </div>
   );
