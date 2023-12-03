@@ -13,8 +13,15 @@ import ToolBar from './components/ToolBar'
 
 function App() {
   
-  const [widthOffset,setWidthOffset] = useState(0)
-  const [heightOffset,setHeightOffset] = useState(0)
+  const [widthOffset,setWidthOffset] = useState(0);
+  const [heightOffset,setHeightOffset] = useState(0);
+  const [mousePosition,setMousePosition] = useState(0);
+  
+
+  const handle_mouse = (event) =>{
+    const {clientX, clientY} = event;
+    setMousePosition({x: clientX,y: clientY});
+  }
 
   return (
     <>
@@ -33,7 +40,7 @@ function App() {
         <Route path='/demo' element={
               <>
               <ToolBar setHeightOffset={setHeightOffset} setWidthOffset={setWidthOffset}/>
-              <DemoCanva offset={heightOffset}/>
+              <DemoCanva mousePosition={mousePosition}  offset={heightOffset}/>
               </>
             
         } />
