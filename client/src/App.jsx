@@ -10,55 +10,70 @@ import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import DemoCanva from './components/DemoCanva'
 import ToolBar from './components/ToolBar'
 
+import DnDFlow from './components/Flow'
 
 function App() {
-  
-  const [widthOffset,setWidthOffset] = useState(0);
-  const [heightOffset,setHeightOffset] = useState(0);
-  const [mousePosition,setMousePosition] = useState(0);
-  
 
-  const handle_mouse = (event) =>{
-    const {clientX, clientY} = event;
-    setMousePosition({x: clientX,y: clientY});
-  }
+  const [widthOffset, setWidthOffset] = useState(0);
+  const [heightOffset, setHeightOffset] = useState(0);
+
+  const initialNodes = [
+    {
+      id: '1',
+      type: 'input',
+      data: { label: 'Input Node' },
+      position: { x: 250, y: 25 },
+      configuratin: {
+        suffix: "test_api",
+      },
+    },
+    {
+      id: '2',
+      type: 'output',
+      data: { label: 'Output Node' },
+      position: { x: 250, y: 250 },
+    },
+  ];
+
+  const initialEdges = [
+    { id: 'e1-2', source: '1', target: '2', animated: true },
+  ];
+  const [nodes, setNodes] = useState(initialNodes);
+  const [edges, setEdges] = useState(initialEdges);
 
   return (
     <>
       <BrowserRouter>
-      <Routes>
+        <Routes>
 
-        <Route path='/' element={
+          <Route path='/' element={
             <>
               <NavBar />
-              <Presentation/>
-              <Description/>
-              <Footer/>
+              <Presentation />
+              <Description />
+              <Footer />
             </>
-        } />
+          } />
 
-        <Route path='/demo' element={
-              <>
-              <ToolBar setHeightOffset={setHeightOffset} setWidthOffset={setWidthOffset}/>
-              <DemoCanva mousePosition={mousePosition}  offset={heightOffset}/>
-              </>
-            
-        } />
-
-        <Route path='/pricing' element={
+          <Route path='/demo' element={
             <>
-              <NavBar/>
-              <Presentation/>
-              <Description/>
-              <Footer/>
+              <ToolBar setHeightOffset={setHeightOffset} setWidthOffset={setWidthOffset} setNodes={setNodes}/>
+              <DemoCanva nodes={nodes} edges={edges} setNodes={setNodes} setEdges={setEdges} offset={heightOffset} />
             </>
-        } />
+
+          } />
+
+          <Route path='/pricing' element={
+            <>
+              <DnDFlow/>
+            </>
+          } />
 
 
 
-        
-      </Routes>
-      
+
+        </Routes>
+
 
       </BrowserRouter>
     </>
