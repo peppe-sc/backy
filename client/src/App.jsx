@@ -8,10 +8,14 @@ import Description from './components/Description'
 import Footer from './components/Footer';
 import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import DemoCanva from './components/DemoCanva'
+import ToolBar from './components/ToolBar'
 
 
 function App() {
   
+  const [widthOffset,setWidthOffset] = useState(0)
+  const [heightOffset,setHeightOffset] = useState(0)
+
   return (
     <>
       <BrowserRouter>
@@ -28,8 +32,8 @@ function App() {
 
         <Route path='/demo' element={
               <>
-              
-              <DemoCanva/>
+              <ToolBar setHeightOffset={setHeightOffset} setWidthOffset={setWidthOffset}/>
+              <DemoCanva offset={heightOffset}/>
               </>
             
         } />

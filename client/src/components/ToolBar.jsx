@@ -13,7 +13,8 @@ function ToolBar(props) {
   useEffect(() => {
     const updateSize = () => {
       const rect = myDivRef.current.getBoundingClientRect();
-      //props.set
+      props.setWidthOffset(rect.width)
+      props.setHeightOffset(rect.height)
     };
 
     // Aggiungi un listener per l'evento resize quando il componente monta
@@ -30,26 +31,17 @@ function ToolBar(props) {
 
   return (
     <>
-      <div ref={myDivRef} id='gear_back' className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white'>
-        <h1 className='w-full text-3xl font-bold text-[#00df9a]'>BACKY</h1>
-        <ul className='hidden md:flex'>
-          <li className='p-4'><a href="#">Home</a></li>
-          <li className='p-4'><a href="#">Company</a></li>
-          <li className='p-4'><a href="#">Demo</a></li>
-          <li className='p-4'><a href="#">About</a></li>
-          <li className='p-4'><a href="#">Contact</a></li>
+      <div ref={myDivRef} id='gear_back' className='flex items-center h-24 max-w-[1240px] mx-auto px-4 text-white'>
+        <h1 className='flex text-3xl font-bold text-[#00df9a]'>BACKY</h1>
+        <ul className='flex'>
+        <li className='p-4'><a href="#"></a></li>
+          <li className='p-4'><a href="#">Start</a></li>
+          <li className='p-4'><a href="#">Data Transform</a></li>
+          <li className='p-4'><a href="#">Converter</a></li>
+          <li className='p-4'><a href="#">If/Else</a></li>
+          <li className='p-4'><a href="#">End</a></li>
         </ul>
-        <div onClick={handleNav} className='block md:hidden'>
-          {nav ? <a href="#"><AiOutlineClose size={20} /></a> : <a href="#"><AiOutlineMenu size={20} /></a>}
-        </div>
-        <ul className={nav ? 'fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500' : 'ease-in-out duration-500 fixed left-[-100%]'}>
-          <h1 className='w-full text-3xl font-bold text-[#00df9a] m-4'>BACKY</h1>
-          <li className='p-4 border-b border-gray-600'><a href="#">Home</a></li>
-          <li className='p-4 border-b border-gray-600'><a href="#">Company</a></li>
-          <li className='p-4 border-b border-gray-600'><a href="#">Demo</a></li>
-          <li className='p-4 border-b border-gray-600'><a href="#">About</a></li>
-          <li className='p-4'><a href="#">Contact</a></li>
-        </ul>
+        
       </div>
 
     </>

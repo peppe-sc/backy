@@ -39,11 +39,11 @@ const initialNodes = [
 ];
 
 const initialEdges = [
-    { id: 'e1-2', source: '1', target: '2' },
+    { id: 'e1-2', source: '1', target: '2' , animated: true},
     { id: 'e2-3', source: '2', target: '3', animated: true },
 ];
 
-function DemoCanva() {
+function DemoCanva(props) {
     const [nodes, setNodes] = useState(initialNodes);
     const [edges, setEdges] = useState(initialEdges);
     
@@ -80,7 +80,7 @@ function DemoCanva() {
     }, []);
 
     return (
-        <div className=' bg-white' style={{ width: width, height: height }}>
+        <div className=' bg-white' style={{ width: width, height: height-props.offset }}>
             <ReactFlow nodes={nodes} edges={edges} onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange} onConnect={onConnect} fitView >
                 <Background color="#aaa" gap={16} />
