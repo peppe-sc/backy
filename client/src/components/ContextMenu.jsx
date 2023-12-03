@@ -7,6 +7,7 @@ export default function ContextMenu({
   left,
   right,
   bottom,
+  setConfigure,
   ...props
 }) {
   const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
@@ -34,8 +35,9 @@ export default function ContextMenu({
       <p style={{ margin: '0.5em' }}>
         <small>node: {id}</small>
       </p>
-      <button onClick={duplicateNode}>duplicate</button>
-      <button onClick={deleteNode}>delete</button>
+      <button onClick={duplicateNode}>Duplicate</button>
+      <button onClick={(event)=>setConfigure(id)}>Configure</button>
+      <button onClick={deleteNode}>Delete</button>
     </div>
   );
 }
