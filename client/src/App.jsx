@@ -57,15 +57,14 @@ function App() {
 
           <Route path='/demo' element={
             <>
-              <ToolBar setHeightOffset={setHeightOffset} setWidthOffset={setWidthOffset} setNodes={setNodes}/>
-              <DemoCanva nodes={nodes} edges={edges} setNodes={setNodes} setEdges={setEdges} offset={heightOffset} />
+              <DnDFlow/>
             </>
 
           } />
 
           <Route path='/pricing' element={
             <>
-              <DnDFlow/>
+              
             </>
           } />
 

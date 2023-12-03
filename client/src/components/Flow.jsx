@@ -19,12 +19,13 @@ const minimapStyle = {
 };
 
 import Tools from './Tools';
+import ConfigurationMenu from './ConfigurationMenu';
 
 const initialNodes = [
   {
     id: '1',
     type: 'input',
-    data: { label: 'input node' },
+    data: { label: 'Start' },
     position: { x: 250, y: 5 },
   },
 ];
@@ -177,7 +178,7 @@ const DnDFlow = () => {
             {hoveredEdge && <EdgeMenu {...edgeMenu}/>}
           </ReactFlow>
         </div>
-        {configure==-1?<Tools />:false}
+        {configure==-1?<Tools />:<ConfigurationMenu setConfigure={setConfigure} node={configure}/>}
       </ReactFlowProvider>
     </div>
   );

@@ -36,7 +36,7 @@ export default function ContextMenu({
         <small>node: {id}</small>
       </p>
       <button onClick={duplicateNode}>Duplicate</button>
-      <button onClick={(event)=>setConfigure(id)}>Configure</button>
+      <button onClick={(event)=>setConfigure(getNode(id))}>Configure</button>
       <button onClick={deleteNode}>Delete</button>
     </div>
   );
