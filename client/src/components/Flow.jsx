@@ -22,12 +22,12 @@ import Tools from './Tools';
 import ConfigurationMenu from './ConfigurationMenu';
 
 const initialNodes = [
-  {
+  /*{
     id: '1',
     type: 'input',
     data: { label: 'Start' },
     position: { x: 250, y: 5 },
-  },
+  },*/
 ];
 
 let id = 0;

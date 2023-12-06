@@ -12,6 +12,10 @@ function ConfigurationMenu ({node,...props})  {
         <form action=""><label htmlFor="suffix">Suffix:   </label><input name='suffix' type="text" value={suffix} onChange={(ev)=>setSuffix(ev.target.value)}/></form>
       </div>:false}
       
+      {node.data.label == "Database"? <div className="dndnode"  >
+        <form className='flex' action=""><p>DB: </p><select name="db_params" id="db_params"><option value="test_db">Test DB</option></select></form>
+      </div>:false}
+
       <div onClick={(event)=>props.setConfigure(-1)} className="dndnode"  >
         <button>Back</button>
       </div>

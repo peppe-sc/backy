@@ -16,6 +16,7 @@ export default () => {
       <div className="dndnode" onDragStart={(event) => onDragStart(event, 'default' ,'Data Transform')} draggable>
         Data Transform
       </div>
+      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'default' ,'Database')} draggable>Database</div>
       <div className="dndnode output" onDragStart={(event) => onDragStart(event, 'output', 'Return Response')} draggable>
         Return Response
       </div>
