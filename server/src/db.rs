@@ -40,7 +40,7 @@ pub fn get_nodes() -> Result<String, String> {
 
     let result = stmt.query_map([], |row| {
         
-       
+       println!("{:?}",row);
         Ok(Node {
             id: match row.get(0) {
                 Ok(s) => s,
@@ -85,7 +85,7 @@ pub fn get_nodes() -> Result<String, String> {
     return Ok(serde_json::to_string(&node_list).unwrap());
 }
 
-pub fn get_edges() -> Result<String,String>{
+/*pub fn get_edges() -> Result<String,String>{
     let connection = Connection::open("./server.db");
 
     if connection.is_err() {
@@ -145,4 +145,4 @@ pub fn get_edges() -> Result<String,String>{
 
 
     return Ok(serde_json::to_string(&node_list).unwrap());
-}
+}*/

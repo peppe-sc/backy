@@ -20,6 +20,7 @@ const minimapStyle = {
 
 import Tools from './Tools';
 import ConfigurationMenu from './ConfigurationMenu';
+import API from '../API';
 
 const initialNodes = [
   /*{
@@ -44,6 +45,7 @@ const DnDFlow = () => {
   const [edgeMenu, setEdgeMenu] = useState(null);
   const [hoveredEdge,setHoveredEdge] = useState(null);
   const [configure,setConfigure] = useState(-1);
+  const [loadingg,setLoading] = useState(true);
   const ref = useRef(null);
 
   const handleResize = () => {
@@ -54,7 +56,9 @@ const DnDFlow = () => {
   useEffect(() => {
     // Aggiungi un listener per l'evento resize quando il componente monta
     window.addEventListener('resize', handleResize);
-
+    setLoading(true);
+    console.log("yes")
+    API.getNodes().then((n) => {setNodes(n);setLoading(false)}).catch((e)=>console.log(e))
     // Pulisci il listener quando il componente smonta
     return () => {
         window.removeEventListener('resize', handleResize);
@@ -151,8 +155,8 @@ const DnDFlow = () => {
   /**
    * End of basic
    */
-  return (
-    <div style={{ width: width, height: height }} className="dndflow">
+  return (<>
+    {loadingg? <h1>Ciaoooo</h1>:<div style={{ width: width, height: height }} className="dndflow">
       <ReactFlowProvider>
         <div className="reactflow-wrapper bg-white" ref={reactFlowWrapper}>
           <ReactFlow
@@ -180,7 +184,7 @@ const DnDFlow = () => {
         </div>
         {configure==-1?<Tools />:<ConfigurationMenu setConfigure={setConfigure} node={configure}/>}
       </ReactFlowProvider>
-    </div>
+    </div>}</>
   );
 };
 
