@@ -40,7 +40,7 @@ pub fn get_nodes() -> Result<String, String> {
 
     let result = stmt.query_map([], |row| {
         
-       println!("{:?}",row);
+       //println!("{:?}",row);
         Ok(Node {
             id: match row.get(0) {
                 Ok(s) => s,
@@ -85,7 +85,7 @@ pub fn get_nodes() -> Result<String, String> {
     return Ok(serde_json::to_string(&node_list).unwrap());
 }
 
-/*pub fn get_edges() -> Result<String,String>{
+pub fn get_edges() -> Result<String,String>{
     let connection = Connection::open("./server.db");
 
     if connection.is_err() {
@@ -98,41 +98,20 @@ pub fn get_nodes() -> Result<String, String> {
 
     let mut stmt = db.prepare(query).unwrap();
 
-    //let node_list:Node;
-
     let result = stmt.query_map([], |row| {
         
-       
-        Ok(Node {
+        //println!("{:?}",row);
+        
+        Ok(Edge {
             id: match row.get(0) {
                 Ok(s) => s,
                 Err(_e) => "null".to_string()
             },
-            node_type: match row.get(1) {
+            source: match row.get(1) {
                 Ok(s) => s,
                 Err(_e) => "null".to_string()
             },
-            source: match row.get(2) {
-                Ok(s) => s,
-                Err(_e) => "null".to_string()
-            },
-            opertation: match row.get(3) {
-                Ok(s) => s,
-                Err(_e) => "null".to_string()
-            },
-            tab: match row.get(4) {
-                Ok(s) => s,
-                Err(_e) => "null".to_string()
-            },
-            label: match row.get(5) {
-                Ok(s) => s,
-                Err(_e) => "null".to_string()
-            },
-            x: match row.get(6) {
-                Ok(s) => s,
-                Err(_e) => "null".to_string()
-            },
-            y: match row.get(7) {
+            target: match row.get(2) {
                 Ok(s) => s,
                 Err(_e) => "null".to_string()
             }
@@ -140,9 +119,9 @@ pub fn get_nodes() -> Result<String, String> {
     }); 
     //drop(stmt);
 
-    let node_list: Vec<Node> = result.unwrap().map(|e|{e.unwrap()}).collect();
+    let edge_list: Vec<Edge> = result.unwrap().map(|e|{e.unwrap()}).collect();
 
 
 
-    return Ok(serde_json::to_string(&node_list).unwrap());
-}*/
+    return Ok(serde_json::to_string(&edge_list).unwrap());
+}

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback,useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import ReactFlow, {
   ReactFlowProvider,
   addEdge,
@@ -43,9 +43,9 @@ const DnDFlow = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [menu, setMenu] = useState(null);
   const [edgeMenu, setEdgeMenu] = useState(null);
-  const [hoveredEdge,setHoveredEdge] = useState(null);
-  const [configure,setConfigure] = useState(-1);
-  const [loadingg,setLoading] = useState(true);
+  const [hoveredEdge, setHoveredEdge] = useState(null);
+  const [configure, setConfigure] = useState(-1);
+  const [loadingg, setLoading] = useState(true);
   const ref = useRef(null);
 
   const handleResize = () => {
@@ -58,26 +58,31 @@ const DnDFlow = () => {
     window.addEventListener('resize', handleResize);
     setLoading(true);
     console.log("yes")
-    API.getNodes().then((n) => {setNodes(n);setLoading(false)}).catch((e)=>console.log(e))
+    API.getNodes().then((n) => {
+      setNodes(n);
+      id = Math.max(...n.map(x=>parseInt(x.id)))+1;
+      API.getEdges().then((e) => { setEdges(e); setLoading(false); }).catch((e)=>console.log(e));
+    }).catch((e) => console.log(e));
+    
     // Pulisci il listener quando il componente smonta
     return () => {
-        window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleResize);
     };
-}, []);
+  }, []);
 
   /**
    * Basic code to work
    */
   const onConnect = useCallback(
-    (params) => setEdges((eds) => {console.log(params);params.animated=true;return addEdge(params, eds);}),
+    (params) => setEdges((eds) => { console.log(params); params.animated = true; return addEdge(params, eds); }),
     [],
   );
-  
+
   const onNodeContextMenu = useCallback(
     (event, node) => {
       // Prevent native context menu from showing
       event.preventDefault();
-        
+
       // Calculate position of the context menu. We want to make sure it
       // doesn't get positioned off-screen.
       const pane = ref.current.getBoundingClientRect();
@@ -103,10 +108,10 @@ const DnDFlow = () => {
       event.preventDefault();
       //const label = "f"
       const type_label = event.dataTransfer.getData('application/reactflow');
-      
+
       const type = type_label.split("###")[0]
       const label = type_label.split("###")[1]
-      
+
       // check if the dropped element is valid
       if (typeof type === 'undefined' || !type) {
         return;
@@ -132,31 +137,31 @@ const DnDFlow = () => {
   );
 
   const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
-  
+
   const onEdgeMouseEnter = (event, edge) => {
-    
+
     setEdgeMenu({
-        id: edge.id,
-        top: event.clientY ,
-        left: event.clientX ,
-        width: '200px',
-        height: '100px'
+      id: edge.id,
+      top: event.clientY,
+      left: event.clientX,
+      width: '200px',
+      height: '100px'
     });
-    
-    
+
+
     setHoveredEdge(edge.id);
   };
-  
+
   const onEdgeMouseLeave = (event, edge) => {
-    window.setTimeout(()=>setHoveredEdge(null),1000)
-    
+    window.setTimeout(() => setHoveredEdge(null), 1000)
+
   };
-  
+
   /**
    * End of basic
    */
   return (<>
-    {loadingg? <h1>Ciaoooo</h1>:<div style={{ width: width, height: height }} className="dndflow">
+    {loadingg ? <h1>Ciaoooo</h1> : <div style={{ width: width, height: height }} className="dndflow">
       <ReactFlowProvider>
         <div className="reactflow-wrapper bg-white" ref={reactFlowWrapper}>
           <ReactFlow
@@ -178,11 +183,11 @@ const DnDFlow = () => {
             <Background color="#aaa" gap={16} />
             <MiniMap style={minimapStyle} zoomable pannable />
             <Controls />
-            {menu && <ContextMenu  onClick={onPaneClick} {...menu} setConfigure={setConfigure}/>}
-            {hoveredEdge && <EdgeMenu {...edgeMenu}/>}
+            {menu && <ContextMenu onClick={onPaneClick} {...menu} setConfigure={setConfigure} />}
+            {hoveredEdge && <EdgeMenu {...edgeMenu} />}
           </ReactFlow>
         </div>
-        {configure==-1?<Tools />:<ConfigurationMenu setConfigure={setConfigure} node={configure}/>}
+        {configure == -1 ? <Tools /> : <ConfigurationMenu setConfigure={setConfigure} node={configure} />}
       </ReactFlowProvider>
     </div>}</>
   );

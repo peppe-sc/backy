@@ -1,5 +1,6 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use actix_cors::Cors;
+
 mod db;
 
 #[get("/")]
@@ -12,6 +13,12 @@ async fn hello() -> impl Responder {
 async fn get_nodes() -> impl Responder{
     let nodes = db::get_nodes();
     HttpResponse::Ok().body(nodes.unwrap())
+}
+
+#[get("/edges")]
+async fn get_edges() -> impl Responder{
+    let edges: Result<String, String> = db::get_edges();
+    HttpResponse::Ok().body(edges.unwrap())
 }
 
 #[post("/echo")]
@@ -33,6 +40,7 @@ async fn main() -> std::io::Result<()> {
             .service(hello)
             .service(echo)
             .service(get_nodes)
+            .service(get_edges)
             .route("/hey", web::get().to(manual_hello))
             .route("/demo/{demo_id}",web::get().to(manual_hello))
     })
