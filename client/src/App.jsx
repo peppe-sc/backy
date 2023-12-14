@@ -7,8 +7,8 @@ import Presentation from './components/Presentation'
 import Description from './components/Description'
 import Footer from './components/Footer';
 import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
-import DemoCanva from './components/DemoCanva'
-import ToolBar from './components/ToolBar'
+//import DemoCanva from './components/DemoCanva'
+//import ToolBar from './components/ToolBar'
 
 import DnDFlow from './components/Flow'
 

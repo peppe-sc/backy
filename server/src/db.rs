@@ -125,3 +125,14 @@ pub fn get_edges() -> Result<String,String>{
 
     return Ok(serde_json::to_string(&edge_list).unwrap());
 }
+
+
+pub fn add_nodes(nodes: Vec<Node>) -> Result<String,String>{
+    let connection = Connection::open("./server.db");
+
+    if connection.is_err() {
+        return Err("Error during database connection".to_string());
+    }
+    
+    Ok("2".to_string())
+}
