@@ -1,3 +1,4 @@
+//use actix_web::web::Query;
 use rusqlite::Connection;
 use serde::Serialize;
 use serde_json;
@@ -19,6 +20,11 @@ struct Edge {
     id: String,
     source: String,
     target: String,
+}
+
+#[derive(Serialize)]
+struct Table {
+    name: String
 }
 
 
@@ -135,4 +141,34 @@ pub fn add_nodes(nodes: Vec<Node>) -> Result<String,String>{
     }
     
     Ok("2".to_string())
+}
+
+pub fn get_db_list() -> Result<String,String>{
+    let connection = Connection::open("./server.db");
+
+    if connection.is_err() {
+        return Err("Error during database connection".to_string());
+    }
+
+    let query = "SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name";
+
+    let db = connection.unwrap();
+
+    let mut stmt = db.prepare(query).unwrap();
+
+    let result = stmt.query_map([], |row| {
+        
+        //println!("{:?}",row);
+        
+        Ok(Table {
+            name: match row.get(0) {
+                Ok(s) => s,
+                Err(_e) => "null".to_string()
+            }
+        })
+    }); 
+
+    let table_list:Vec<Table> = result.unwrap().map(|d|{d.unwrap()}).collect(); 
+
+    Ok(serde_json::to_string(&table_list).unwrap())
 }

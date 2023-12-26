@@ -1,7 +1,8 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
 
 export default () => {
+
   const onDragStart = (event, nodeType, label) => {
     event.dataTransfer.setData('application/reactflow', nodeType + "###" + label);
 
@@ -42,6 +43,12 @@ export default () => {
 
       <div className="dndnode output" onDragStart={(event) => onDragStart(event, 'output', 'Return Response')} draggable>
         Return Response
+      </div>
+
+      <div>
+        <Button className=' pr-5' href="#">Save</Button>
+
+        <Button  href="#">Deploy</Button>
       </div>
     </aside>
   );

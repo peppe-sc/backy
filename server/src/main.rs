@@ -44,6 +44,12 @@ async fn echo(req_body: String) -> impl Responder {
     HttpResponse::Ok().body(req_body)
 }
 
+#[get("/db/tables")]
+async fn get_tables_list() -> impl Responder{
+    let db_list = db::get_db_list();
+    HttpResponse::Ok().body(db_list.unwrap())
+}
+
 async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
 }
@@ -71,6 +77,7 @@ async fn main() -> std::io::Result<()> {
             .service(echo)
             .service(get_nodes)
             .service(get_edges)
+            .service(get_tables_list)
             .route("/flows",web::put().to(register_flow))
             .route("/API/{flow_id}", web::post().to(execute_flow))
             

@@ -14,11 +14,11 @@ async function getNodes() {
 }
 
 async function getEdges() {
-    console.log("s")
+    //console.log("s")
     const response = await fetch(URL + '/edges');
-    console.log(response)
+    //console.log(response)
     const edges = await response.json();
-    console.log(edges)
+    //console.log(edges)
     if (response.ok) {
         return edges.map((x) => ({id: x.id, source: x.source, target: x.target, animated: true}));
     } else {
@@ -26,5 +26,22 @@ async function getEdges() {
     }
 }
 
-const API = {getNodes,getEdges};
+async function getTablesList() {
+    //console.log("s")
+    const response = await fetch(URL + '/db/tables');
+    //console.log(response)
+    const tables = await response.json();
+    //console.log(edges)
+    //console.log(tables.ok);
+    if (response.ok) {
+        
+        return tables.map((x)=>x.name);
+    } else {
+        throw tables;
+    }
+}
+
+
+
+const API = {getNodes,getEdges,getTablesList};
 export default API;

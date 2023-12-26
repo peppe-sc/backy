@@ -11,6 +11,8 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import ContextMenu from './ContextMenu';
 import EdgeMenu from './EdgeMenu';
+import Spinner from 'react-bootstrap/Spinner';
+
 //import Sidebar from './Sidebar';
 
 
@@ -45,7 +47,7 @@ const DnDFlow = () => {
   const [edgeMenu, setEdgeMenu] = useState(null);
   const [hoveredEdge, setHoveredEdge] = useState(null);
   const [configure, setConfigure] = useState(-1);
-  const [loadingg, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const ref = useRef(null);
 
   const handleResize = () => {
@@ -57,7 +59,7 @@ const DnDFlow = () => {
     // Aggiungi un listener per l'evento resize quando il componente monta
     window.addEventListener('resize', handleResize);
     setLoading(true);
-    console.log("yes")
+    //console.log("yes")
     API.getNodes().then((n) => {
       setNodes(n);
       id = Math.max(...n.map(x=>parseInt(x.id)))+1;
@@ -74,7 +76,7 @@ const DnDFlow = () => {
    * Basic code to work
    */
   const onConnect = useCallback(
-    (params) => setEdges((eds) => { console.log(params); params.animated = true; return addEdge(params, eds); }),
+    (params) => setEdges((eds) => { /*console.log(params);*/ params.animated = true; return addEdge(params, eds); }),
     [],
   );
 
@@ -161,7 +163,7 @@ const DnDFlow = () => {
    * End of basic
    */
   return (<>
-    {loadingg ? <h1>Ciaoooo</h1> : <div style={{ width: width, height: height }} className="dndflow">
+    {loading ? <Spinner animation="grow" /> : <div style={{ width: width, height: height }} className="dndflow">
       <ReactFlowProvider>
         <div className="reactflow-wrapper bg-white" ref={reactFlowWrapper}>
           <ReactFlow
