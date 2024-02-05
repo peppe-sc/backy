@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useReactFlow } from 'reactflow';
 import API from '../API';
-
+import Form from 'react-bootstrap/Form';
 function ConfigurationMenu({ node, ...props }) {
 
   const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
+  console.log(node)
   const [suffix, setSuffix] = useState(node.suffix ? node.suffix : "")
   const [tables, setTables] = useState([]);
   const [table, setTable] = useState([]);
@@ -12,6 +13,9 @@ function ConfigurationMenu({ node, ...props }) {
   const [db, setDb] = useState();
   const [fields, setFields] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("")
+  
+
 
   useEffect(() => {
     setLoading(true);
@@ -23,7 +27,10 @@ function ConfigurationMenu({ node, ...props }) {
     }
   }, [node]);
 
-
+  /**<p>Table: </p>
+            <select name="db_params" id="db_params">
+              {tables.map((table_name)=><option value={table_name}>{table_name}</option>)}
+            </select> */
   return (
     <>
       {loading ? false : <aside>
@@ -32,15 +39,14 @@ function ConfigurationMenu({ node, ...props }) {
           <form action=""><label htmlFor="suffix">Suffix:   </label><input name='suffix' type="text" value={suffix} onChange={(ev) => setSuffix(ev.target.value)} /></form>
         </div> : false}
 
-        {node.data.label == "Database" ? <div className="dndnode"  >
-          <form className='flex' action="">
-
-            <p>Table: </p>
-            <select name="db_params" id="db_params">
-              {tables.map((table_name)=><option value={table_name}>{table_name}</option>)}
-            </select>
-            
-          </form>
+        {node.data.label == "Database" ? <div   >
+          <Form className='flex'>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Write here your SQL query</Form.Label>
+              <Form.Control as="textarea" value={query}
+          onChange={(event)=>setQuery(event.target.value)} rows={3} />
+            </Form.Group>
+          </Form>
         </div> : false}
 
         <div onClick={(event) => props.setConfigure(-1)} className="dndnode"  >
@@ -50,6 +56,8 @@ function ConfigurationMenu({ node, ...props }) {
           setNodes((nodes) => nodes.map((n) => {
             if (n.id == node.id) {
               n.suffix = suffix;
+              n.query = query;
+              console.log(n);
             }
             return n;
           }));
